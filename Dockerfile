@@ -1,14 +1,13 @@
 FROM qnib/alpn-base
 
-ENV DUMB_INIT_VER=1.0.1 \
-    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/qnib/consul/bin/
-RUN echo "2016-04-24.3" \
- && apk add --update wget \
- && wget -qO /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VER}/dumb-init_${DUMB_INIT_VER}_amd64 \
+RUN apk --no-cache add wget \
+ && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
+ && chmod +x /usr/local/bin/go-github \
+ && echo "# dumb-init: $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64$" --limit 1)" \
+ && wget -qO /usr/local/bin/dumb-init $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64" --limit 1) \
  && chmod +x /usr/local/bin/dumb-init \
- && wget --no-cache -qO /usr/local/bin/entrypoint.sh https://raw.githubusercontent.com/qnib/init-plain/master/bin/entrypoint.sh \
- && chmod +x /usr/local/bin/entrypoint.sh \
- && apk del wget \
- && rm -rf /var/cache/apk/*
+ && echo "# init-plain: $(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo init-plain --regex "init-plain.tar" --limit 1)" \
+ && wget -qO - $(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo init-plain --regex "init-plain.tar" --limit 1) |tar xf - -C /usr/local/ \
+ && rm -f /usr/local/bin/go-github
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
