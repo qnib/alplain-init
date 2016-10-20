@@ -10,5 +10,5 @@ RUN apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/test
  && echo "# init-plain: $(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo init-plain --regex "init-plain.tar" --limit 1)" \
  && wget -qO - $(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo init-plain --regex "init-plain.tar" --limit 1) |tar xf - --strip-components=1 -C / \
  && rm -f /usr/local/bin/go-github
+RUN adduser -h /home/user/ -s /sbin/nologin -u 1000 -D user
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
