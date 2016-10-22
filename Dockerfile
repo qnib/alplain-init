@@ -1,7 +1,7 @@
-FROM qnib/alpn-base
+FROM alpine:3.4
 
 RUN apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/testing tar \
- && apk --no-cache add wget \
+ && apk --no-cache add ca-certificates bash wget \
  && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
  && chmod +x /usr/local/bin/go-github \
  && echo "# dumb-init: $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64$" --limit 1)" \
