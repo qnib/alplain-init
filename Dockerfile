@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:edge
 
 RUN apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/testing tar \
  && apk --no-cache add ca-certificates bash wget \
