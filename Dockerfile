@@ -15,4 +15,6 @@ RUN apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/test
  && chmod +x /usr/local/bin/go-fisherman \
  && rm -f /usr/local/bin/go-github
 RUN adduser -h /home/user/ -s /sbin/nologin -u 1000 -D user
+HEALTHCHECK --interval=5s --retries=5 --timeout=2s \
+  CMD /usr/local/bin/healthcheck.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
