@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 RUN apk add --no-cache 'su-exec>=0.2' bash
 RUN apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/testing tar \
