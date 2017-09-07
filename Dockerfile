@@ -1,7 +1,9 @@
 FROM alpine:3.6
 
-RUN apk add --no-cache 'su-exec>=0.2' bash
-RUN apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/testing tar \
+ENV ENTRYPOINTS_DIR=/opt/qnib/entry/
+
+RUN apk add --no-cache 'su-exec>=0.2' bash \
+ && apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/testing tar \
  && apk --no-cache add ca-certificates bash wget \
  && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
  && chmod +x /usr/local/bin/go-github \
