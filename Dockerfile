@@ -1,4 +1,9 @@
-FROM alpine:edge
+ARG DOCKER_REGISTRY=docker.io
+ARG FROM_IMG_REPO=library
+ARG FROM_IMG_NAME="alpine"
+ARG FROM_IMG_TAG="edge"
+ARG FROM_IMG_HASH=""
+FROM ${DOCKER_REGISTRY}/${FROM_IMG_REPO}/${FROM_IMG_NAME}:${FROM_IMG_TAG}${DOCKER_IMG_HASH}
 
 RUN apk --no-cache add --repository http://dl-4.alpinelinux.org/alpine/edge/testing tar \
  && apk --no-cache add ca-certificates bash wget \
